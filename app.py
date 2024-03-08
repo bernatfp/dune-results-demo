@@ -9,7 +9,7 @@ st.title('Top token trades finder')
 body = '''
 This app lets you find the largest trades in the last 24h for a particular token, using Dune as a data backend.
 
-[[Query](https://dune.com/queries/3503523)]  |  [[Code](https://github.com)]
+[[Query](https://dune.com/queries/3503523)]  |  [[Code](https://github.com/bernatfp/dune-results-demo)]
 
 '''
 
@@ -36,9 +36,8 @@ if submit:
         # Format the API URL
         query = f"(token_bought_symbol = {token_symbol} OR token_sold_symbol = {token_symbol}) AND amount_usd > {min_amount}"
         api_url = f"https://api.dune.com/api/v1/query/3503523/results?filters={query}&columns=token_sold_symbol,token_bought_symbol,amount_usd,address_url,tx_hash_url,tx_from_ens,tx_hash,block_time&sort_by=amount_usd desc&limit=100"
-        #api_url = f"https://api.dune.com/api/v1/query/3503523/results?limit=10"
         
-        # Send request to the Dune Analytics API
+        # Send request to the Dune API (tip: you can use our SDK for even easier DX)
         response = requests.get(api_url, headers=headers)
         
         if response.status_code == 200:
